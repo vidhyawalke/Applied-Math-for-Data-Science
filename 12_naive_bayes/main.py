@@ -3,12 +3,13 @@ from pathlib import Path
 from collections import Counter
 import numpy as np
 import matplotlib.pyplot as plt
-# These short labeled messages are the tiny training set.
+# Labels use 1 for spam and 0 for not-spam in this small training set.
 messages=["win a free prize","claim your free gift","meeting at noon","project meeting today","free prize for you","lunch meeting today"]
 labels=np.array([1,1,0,0,1,0]); vocab=sorted(set(word for msg in messages for word in msg.split()))
 counts={c:Counter() for c in [0,1]}; totals=Counter(); class_counts=Counter(labels)
-# Laplace smoothing adds one count so unseen words do not get zero probability.
+# Add-one smoothing keeps every word likelihood nonzero, even if absent in a class.
 for msg,label in zip(messages,labels): counts[label].update(msg.split()); totals[label]+=len(msg.split())
+# Naive Bayes multiplies word likelihoods; log probabilities turn products into sums.
 def spam_probability(message):
     scores=[]
     for c in [0,1]:
