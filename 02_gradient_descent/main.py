@@ -2,8 +2,10 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+# This bowl has its lowest point at x = 3.
 def f(x): return (x-3)**2+1
 def derivative(x): return 2*(x-3)
+# Start away from the minimum and repeatedly step against the derivative.
 x=-2.; rate=.15; path=[x]
 for _ in range(30):
     x-=rate*derivative(x); path.append(x)
