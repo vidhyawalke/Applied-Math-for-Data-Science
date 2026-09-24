@@ -2,9 +2,9 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# Most values follow a normal pattern; the final few are unusual examples.
+# The main sample is roughly normal, with a few deliberately unusual values added.
 rng=np.random.default_rng(14); values=np.r_[rng.normal(50,4,45),[68,31,82]]
-# A z-score measures distance from the mean in standard deviations.
+# Flag values when the absolute z-score exceeds the chosen two-standard-deviation cutoff.
 mean,std=values.mean(),values.std(ddof=1); z=(values-mean)/std; anomaly=np.abs(z)>2
 print(f"Mean={mean:.1f}; standard deviation={std:.1f}; flagged values:")
 for i in np.where(anomaly)[0]: print(f"  index {i}: value={values[i]:.1f}, z={z[i]:.2f}")
