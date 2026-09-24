@@ -2,9 +2,11 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+# Combine a steady trend, a repeating six-step pattern, and a little noise.
 rng=np.random.default_rng(7); t=np.arange(36); season=np.tile([2,1,0,-1,-2,-1],6)
 y=10+.25*t+season+rng.normal(0,.35,len(t)); window=6
 moving=np.convolve(y,np.ones(window)/window,mode="valid"); future=np.arange(36,42)
+# Reuse the last seasonal cycle and shift it by the recent level change.
 forecast=y[-window:]+(y[-1]-y[-window-1]); print("Next six forecasts:",np.round(forecast,1))
 plt.plot(t,y,"o-",label="observed toy series"); plt.plot(np.arange(window-1,len(t)),moving,label="6-step moving average")
 plt.plot(future,forecast,"o--",color="tomato",label="seasonal forecast"); plt.axvline(35.5,color="gray",linestyle=":")
