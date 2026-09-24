@@ -3,9 +3,11 @@ from pathlib import Path
 from collections import Counter
 import numpy as np
 import matplotlib.pyplot as plt
+# These short labeled messages are the tiny training set.
 messages=["win a free prize","claim your free gift","meeting at noon","project meeting today","free prize for you","lunch meeting today"]
 labels=np.array([1,1,0,0,1,0]); vocab=sorted(set(word for msg in messages for word in msg.split()))
 counts={c:Counter() for c in [0,1]}; totals=Counter(); class_counts=Counter(labels)
+# Laplace smoothing adds one count so unseen words do not get zero probability.
 for msg,label in zip(messages,labels): counts[label].update(msg.split()); totals[label]+=len(msg.split())
 def spam_probability(message):
     scores=[]
