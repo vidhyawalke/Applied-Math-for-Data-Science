@@ -1,6 +1,6 @@
-# Math in Motion
+# Applied Math for Data Science
 
-### 15 hands-on projects connecting mathematics to data science
+### 15 hands-on projects connecting math to data science
 
 I’m learning how math powers data science by building 15 small Python projects. I made these for myself and anyone starting out—each has simple code and a visual explanation.
 
