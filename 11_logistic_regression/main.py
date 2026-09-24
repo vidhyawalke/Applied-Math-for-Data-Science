@@ -2,9 +2,12 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+# Create two overlapping groups of points with different labels.
 rng=np.random.default_rng(11); class0=rng.normal([-1,-1],.8,(45,2)); class1=rng.normal([1,1],.8,(45,2))
 points=np.vstack([class0,class1]); y=np.r_[np.zeros(len(class0)),np.ones(len(class1))]; X=np.column_stack([np.ones(len(points)),points]); w=np.zeros(3)
+# The sigmoid turns any score into a probability between zero and one.
 def sigmoid(z): return 1/(1+np.exp(-np.clip(z,-30,30)))
+# Move weights opposite the average gradient of the logistic loss.
 for _ in range(2500): w-=.2*(X.T@(sigmoid(X@w)-y))/len(y)
 print("Weights [intercept, x1, x2]:",np.round(w,2)); print(f"Toy training accuracy: {np.mean((sigmoid(X@w)>=.5)==y):.1%}")
 gx,gy=np.meshgrid(np.linspace(points[:,0].min()-1,points[:,0].max()+1,100),np.linspace(points[:,1].min()-1,points[:,1].max()+1,100))
