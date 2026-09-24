@@ -2,11 +2,9 @@
 
 ### 15 hands-on projects connecting mathematics to data science
 
-**Math in Motion** is a student-built portfolio of small, visual projects that make data science ideas easier to understand. Each project starts with a mathematical concept, turns it into a simple Python program, and shows what the result means.
+I’m learning how math powers data science by building 15 small Python projects. I made these for myself and anyone starting out—each has simple code and a visual explanation.
 
-> **Learn the math. Build the model. See the result.**
-
-Every project includes a beginner-friendly Python script and a Jupyter notebook with an explanation, editable code, and an embedded visualization preview. The examples use small, reproducible datasets so you can focus on the idea rather than setup or data cleaning.
+If this helps you learn, please ⭐ the repo!
 
 ---
 
