@@ -3,9 +3,9 @@ from pathlib import Path
 from math import lgamma
 import numpy as np
 import matplotlib.pyplot as plt
-# Beta(1, 1) is a uniform starting belief before seeing these counts.
+# A Beta prior updates by adding successes to alpha and failures to beta.
 na,ca,nb,cb=500,55,510,68; aa,ba=1+ca,1+na-ca; ab,bb=1+cb,1+nb-cb
-# Draw possible rates from each updated posterior and compare them.
+# Comparing paired posterior draws estimates P(rate B > rate A).
 rng=np.random.default_rng(5); sa=rng.beta(aa,ba,100000); sb=rng.beta(ab,bb,100000)
 print(f"Posterior mean A={aa/(aa+ba):.1%}; B={ab/(ab+bb):.1%}"); print(f"Chance B is better: {np.mean(sb>sa):.1%}")
 grid=np.linspace(.05,.2,300)
