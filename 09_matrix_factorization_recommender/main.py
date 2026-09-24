@@ -2,8 +2,10 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+# A zero marks a rating we hide and ask the model to estimate.
 ratings=np.array([[5,4,0,1],[4,0,2,1],[1,2,4,5],[0,1,5,4.]],float); observed=ratings>0
 rng=np.random.default_rng(9); users=rng.normal(0,.5,(4,2)); items=rng.normal(0,.5,(4,2))
+# Update user and item vectors to bring known-rating predictions closer to observations.
 for _ in range(3000):
     for u,i in zip(*np.where(observed)):
         error=users[u]@items[i]-ratings[u,i]
