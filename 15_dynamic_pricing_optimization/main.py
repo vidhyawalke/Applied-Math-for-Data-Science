@@ -2,8 +2,8 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# Try a set of possible prices; demand falls linearly in this classroom model.
-prices=np.linspace(0,100,201); demand=np.maximum(120-1.1*prices,0); revenue=prices*demand; # Revenue is price times demand, so the largest array value is the best grid choice.
+# In this toy model, demand = max(starting demand - slope × price, 0).
+prices=np.linspace(0,100,201); demand=np.maximum(120-1.1*prices,0); revenue=prices*demand; # Revenue equals price × demand; argmax selects the best tested price, not every possible price.
 best=np.argmax(revenue)
 print(f"Best grid price: ${prices[best]:.2f}; estimated demand: {demand[best]:.1f}; revenue: ${revenue[best]:.2f}")
 fig,ax1=plt.subplots(); ax1.plot(prices,demand,color="steelblue"); ax1.set_xlabel("Price ($)"); ax1.set_ylabel("Demand (units)",color="steelblue")
