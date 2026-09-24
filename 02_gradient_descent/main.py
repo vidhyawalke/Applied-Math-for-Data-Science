@@ -2,11 +2,12 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# This bowl has its lowest point at x = 3.
+# This quadratic has derivative 2(x - 3), so its minimum is at x = 3.
 def f(x): return (x-3)**2+1
 def derivative(x): return 2*(x-3)
-# Start away from the minimum and repeatedly step against the derivative.
+# The learning rate sets the step size in x <- x - rate * derivative(x).
 x=-2.; rate=.15; path=[x]
+# Repeating the derivative update moves x closer to the minimum.
 for _ in range(30):
     x-=rate*derivative(x); path.append(x)
 print(f"After {len(path)-1} steps: x={x:.3f}, f(x)={f(x):.3f}")
