@@ -2,11 +2,12 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# Make two related features so the main direction is visible.
+# The matrix mixes two random measurements to create correlated features.
 rng=np.random.default_rng(3); data=rng.normal(size=(60,2))@np.array([[2,1.4],[.2,.5]]); data[:,0]+=5
 center=data.mean(axis=0); centered=data-center
-# Covariance eigenvectors point along directions of changing data.
+# eigh returns covariance eigenvectors; sorting by eigenvalue puts the most variable direction first.
 values,vectors=np.linalg.eigh(np.cov(centered,rowvar=False)); order=np.argsort(values)[::-1]; values=values[order]; vectors=vectors[:,order]
+# Project each centered point onto the first principal direction.
 projected=centered@vectors[:,:1]; reconstructed=projected@vectors[:,:1].T+center
 print("Eigenvalues:",np.round(values,2)); print(f"Variance kept: {values[0]/values.sum():.1%}")
 plt.scatter(data[:,0],data[:,1],alpha=.65,label="original points")
