@@ -2,8 +2,10 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+# Make three clouds so we can see whether distance recovers their groups.
 rng=np.random.default_rng(10); points=np.vstack([rng.normal([0,0],.7,(30,2)),rng.normal([4,1],.7,(30,2)),rng.normal([2,4],.7,(30,2))])
 centers=points[[0,30,60]].copy()
+# K-means alternates between nearest-center assignment and recomputing means.
 for step in range(30):
     distances=np.linalg.norm(points[:,None,:]-centers[None,:,:],axis=2); labels=distances.argmin(1)
     new=np.array([points[labels==k].mean(0) for k in range(3)])
