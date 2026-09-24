@@ -2,7 +2,9 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+# These six points are a tiny made-up dataset for practicing a line fit.
 x=np.array([1,2,3,4,5,6.],float); y=np.array([1.2,1.9,3.2,3.8,5.1,5.8])
+# Least squares chooses the slope that makes squared vertical errors small.
 xm,ym=x.mean(),y.mean(); slope=np.sum((x-xm)*(y-ym))/np.sum((x-xm)**2); intercept=ym-slope*xm
 pred=slope*x+intercept
 print(f"Line: y = {slope:.2f}x + {intercept:.2f}"); print(f"Mean squared error: {np.mean((y-pred)**2):.3f}")
