@@ -2,9 +2,9 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# Uniform random points fill the unit square.
+# A point is inside the quarter circle when x² + y² is at most 1.
 rng=np.random.default_rng(13); count=20000; points=rng.random((count,2)); inside=np.sum(points**2,axis=1)<=1
-# Quarter-circle area divided by square area is pi/4.
+# Four times the fraction inside estimates pi; cumulative sums show convergence.
 estimates=4*np.cumsum(inside)/np.arange(1,count+1); print(f"Estimate using {count:,} points: {estimates[-1]:.4f}; actual pi: {np.pi:.4f}")
 fig,axes=plt.subplots(1,2,figsize=(10,4)); sample=points[:1200]; chosen=inside[:1200]
 axes[0].scatter(sample[chosen,0],sample[chosen,1],s=6,label="inside"); axes[0].scatter(sample[~chosen,0],sample[~chosen,1],s=6,label="outside",alpha=.4)
