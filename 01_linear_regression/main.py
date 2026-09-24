@@ -2,10 +2,11 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# These six points are a tiny made-up dataset for practicing a line fit.
+# Each x value pairs with one observed y value; the fitted line predicts y from x.
 x=np.array([1,2,3,4,5,6.],float); y=np.array([1.2,1.9,3.2,3.8,5.1,5.8])
-# Least squares chooses the slope that makes squared vertical errors small.
-xm,ym=x.mean(),y.mean(); slope=np.sum((x-xm)*(y-ym))/np.sum((x-xm)**2); intercept=ym-slope*xm
+# Centering both variables gives the least-squares slope from their covariance divided by x's variance.
+xm,ym=x.mean(),y.mean(); slope=np.sum((x-xm)*(y-ym))/np.sum((x-xm)**2); # Choose the intercept so the fitted line passes through the data means.
+intercept=ym-slope*xm
 pred=slope*x+intercept
 print(f"Line: y = {slope:.2f}x + {intercept:.2f}"); print(f"Mean squared error: {np.mean((y-pred)**2):.3f}")
 plt.scatter(x,y,label="observations"); plt.plot(x,pred,color="tomato",label="fitted line")
