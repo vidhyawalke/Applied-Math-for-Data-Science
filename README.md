@@ -85,5 +85,3 @@ The scripts print key results and save generated charts in each project's `outpu
 The datasets are small teaching examples, not real customer, experiment, or market data. Statistical results are simplified for learning. The portfolio example is not investment advice, and the pricing and churn examples should not be used to make real business decisions.
 
 ---
-
-*Made to learn, experiment, and make the math visible.*
