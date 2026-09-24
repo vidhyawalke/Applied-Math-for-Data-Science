@@ -2,10 +2,11 @@
 from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
-# Each row is one period of made-up returns for two assets.
+# Each row is one period; each column is a made-up return series for an asset.
 returns=np.array([[.02,.01],[-.01,.015],[.03,.025],[0,-.01],[.01,.02],[.025,.005],[-.015,.01],[.02,.03]])
+# The covariance matrix captures each asset's variance and how their returns move together.
 cov=np.cov(returns,rowvar=False); average=returns.mean(0); weights=np.linspace(0,1,101); means=[]; risks=[]
-# Portfolio variance uses w-transpose times covariance times w.
+# For each mix, expected return is w·mean and variance is wᵀΣw.
 for a in weights:
     w=np.array([a,1-a]); means.append(w@average); risks.append(np.sqrt(w@cov@w))
 means=np.array(means); risks=np.array(risks); best=np.argmax(means/risks)
