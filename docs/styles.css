@@ -103,8 +103,7 @@ a { color: #276b9f; }
 .page-layout { grid-template-columns: 190px minmax(0, 1000px); gap: clamp(38px, 5vw, 72px); }
 .sidebar { max-height: none; overflow: visible; font-size: 14px; }
 .toc-projects { max-height: none; overflow: visible; }
-.toc-project { display: none; }
-.toc-project.is-current-project { display: block; }
+.toc-project { display: block; }
 .toc-project-row { display: block; }
 .toc-project-link { padding: 7px 11px; font-size: 13px; line-height: 1.35; }
 .toc-children { padding: 0 0 5px 12px; }
