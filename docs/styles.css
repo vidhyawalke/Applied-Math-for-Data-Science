@@ -101,7 +101,8 @@ a { color: #276b9f; }
 
 /* A compact contents list that follows the article without its own scrollbar. */
 .page-layout { grid-template-columns: 190px minmax(0, 1000px); gap: clamp(38px, 5vw, 72px); }
-.sidebar { max-height: none; overflow: visible; font-size: 14px; }
+.sidebar { max-height: calc(100vh - 125px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; scroll-behavior: smooth; font-size: 14px; }
+.sidebar::-webkit-scrollbar { display: none; }
 .toc-projects { max-height: none; overflow: visible; }
 .toc-project { display: block; }
 .toc-project-row { display: block; }
@@ -135,7 +136,7 @@ a { color: #276b9f; }
   .contents-toggle { display: flex; width: 36px; height: 32px; padding: 7px; flex-direction: column; justify-content: space-between; border: 1px solid #d7dadd; border-radius: 4px; background: #fff; }
   .contents-toggle span { display: block; height: 1px; background: #68727b; }
   .page-layout { display: block; width: 100%; padding: 18px 18px 55px; }
-  .sidebar { display: none; position: fixed; z-index: 6; top: 56px; right: 12px; left: 12px; width: auto; box-shadow: 0 4px 14px rgba(0,0,0,.12); font-size: 14px; }
+  .sidebar { display: none; position: fixed; z-index: 6; top: 56px; right: 12px; left: 12px; width: auto; max-height: calc(100dvh - 72px); box-shadow: 0 4px 14px rgba(0,0,0,.12); font-size: 14px; }
   .sidebar.is-open { display: block; }
   .sidebar-heading { padding: 7px 12px; }
   .toc-link { padding: 7px 12px; }

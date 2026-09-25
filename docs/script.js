@@ -194,8 +194,6 @@ function chart(project) {
 function projectArticle(project) {
   const key = `project-${project.number}`;
   const notebook = `${repo}/blob/main/${project.folder}/${project.folder}.ipynb`;
-  const script = `${repo}/blob/main/${project.folder}/main.py`;
-  const readme = `${repo}/blob/main/${project.folder}/README.md`;
   const introId = `${key}-introduction`;
   sections.push({ id: introId, label: 'Introduction', project: true });
   const contents = [
@@ -210,7 +208,7 @@ function projectArticle(project) {
       <p class="project-kicker">PROJECT ${project.number} <span>·</span> ${escapeHtml(project.topic.toUpperCase())}</p>
       <h2>${escapeHtml(project.title)}</h2>
       <div class="project-introduction" id="${introId}"><h3>Introduction</h3><blockquote>${escapeHtml(project.question)}</blockquote></div>
-      <p class="source-links"><a href="${notebook}" target="_blank" rel="noreferrer">Open notebook ↗</a><a href="${script}" target="_blank" rel="noreferrer">View Python script ↗</a><a href="${readme}" target="_blank" rel="noreferrer">Project guide ↗</a></p>
+      <p class="source-links"><a href="${notebook}" target="_blank" rel="noreferrer">Open notebook ↗</a></p>
     </header>
     ${contents}
   </article>`;
