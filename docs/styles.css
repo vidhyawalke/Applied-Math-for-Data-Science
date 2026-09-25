@@ -13,7 +13,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body { margin: 0; color: var(--ink); background: #fff; font-family: var(--serif); font-size: 17px; line-height: 1.62; }
+body { margin: 0; color: var(--ink); background: #fff; font-family: var(--serif); font-size: 16px; line-height: 1.58; }
 a { color: #276b9f; }
 .skip-link { position: fixed; z-index: 5; top: 8px; left: 8px; padding: 8px 12px; color: #fff; background: #222; transform: translateY(-150%); }
 .skip-link:focus { transform: translateY(0); }
@@ -49,12 +49,12 @@ a { color: #276b9f; }
 
 .article { min-width: 0; max-width: 1000px; }
 .article-heading { margin-bottom: 38px; }
-.article-heading h1 { margin: 0 0 2px; color: #171b20; font: 800 clamp(31px, 4vw, 43px)/1.15 var(--sans); letter-spacing: -.045em; }
+.article-heading h1 { margin: 0 0 2px; color: #171b20; font: 800 clamp(29px, 3.5vw, 38px)/1.15 var(--sans); letter-spacing: -.04em; }
 .byline { margin: 0; color: #76808a; font: 15px/1.5 var(--sans); }
 .byline span { margin: 0 4px; }
 .article-section { margin: 0 0 42px; scroll-margin-top: 92px; }
-.article-section h2 { margin: 0 0 13px; padding-bottom: 6px; color: #252a30; border-bottom: 1px solid var(--line); font: 700 27px/1.3 var(--sans); letter-spacing: -.02em; }
-.article-section h3 { margin: 23px 0 9px; color: #333a41; font: 500 21px/1.3 var(--sans); letter-spacing: -.015em; }
+.article-section h2 { margin: 0 0 13px; padding-bottom: 6px; color: #252a30; border-bottom: 1px solid var(--line); font: 700 24px/1.3 var(--sans); letter-spacing: -.02em; }
+.article-section h3 { margin: 23px 0 9px; color: #333a41; font: 500 19px/1.3 var(--sans); letter-spacing: -.015em; }
 .article-section p { margin: 0 0 13px; }
 .article-section p:last-child { margin-bottom: 0; }
 .article-divider { height: 1px; margin: 48px 0 42px; border: 0; background: #dfe2e4; }
@@ -62,7 +62,7 @@ a { color: #276b9f; }
 .project-heading { margin: 0 0 27px; scroll-margin-top: 92px; }
 .project-kicker { margin: 0 0 4px; color: #75818b; font: 11px var(--sans); letter-spacing: .1em; }
 .project-kicker span { margin: 0 4px; color: #a0a8af; }
-.project-heading h2 { margin: 0 0 3px; color: #171b20; font: 750 clamp(25px, 3vw, 34px)/1.2 var(--sans); letter-spacing: -.035em; }
+.project-heading h2 { margin: 0 0 3px; color: #171b20; font: 750 clamp(24px, 2.6vw, 30px)/1.2 var(--sans); letter-spacing: -.03em; }
 .project-introduction h3 { margin: 10px 0 3px; color: #333a41; font: 500 21px/1.3 var(--sans); }
 .project-introduction blockquote { margin: 0 0 17px; padding: 13px 19px; color: #303840; background: #f5f6f7; border-left: 5px solid #3f8c74; font-size: 16px; }
 .source-links { display: flex; flex-wrap: wrap; gap: 16px; margin: 0; font: 12px var(--sans); }
@@ -101,14 +101,14 @@ a { color: #276b9f; }
 
 /* A compact contents list that follows the article without its own scrollbar. */
 .page-layout { grid-template-columns: 190px minmax(0, 1000px); gap: clamp(38px, 5vw, 72px); }
-.sidebar { max-height: 44vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; scroll-behavior: smooth; font-size: 14px; }
+.sidebar { max-height: min(34vh, 280px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; scroll-behavior: smooth; font-size: 13px; }
 .sidebar::-webkit-scrollbar { display: none; }
 .toc-projects { max-height: none; overflow: visible; }
 .toc-project { display: block; }
 .toc-project-row { display: block; }
-.toc-project-link { padding: 7px 11px; font-size: 13px; line-height: 1.35; }
+.toc-project-link { padding: 5px 9px; font-size: 12px; line-height: 1.3; }
 .toc-children { padding: 0 0 5px 12px; }
-.toc-child { padding: 5px 9px; font-size: 12px; }
+.toc-child { padding: 4px 8px; font-size: 11px; line-height: 1.25; }
 .toc-project.is-current-project .toc-project-row { background: #fff; }
 .toc-project.is-current-project .toc-project-link { color: #373d43; font-weight: 600; }
 .toc-child.is-current { color: #fff; background: var(--blue); }
@@ -129,14 +129,14 @@ a { color: #276b9f; }
 }
 @media (max-width: 680px) {
   html { scroll-padding-top: 62px; }
-  body { font-size: 16px; line-height: 1.55; }
+  body { font-size: 15px; line-height: 1.5; }
   .topbar { height: 50px; padding: 0 14px; }
   .site-title { font-size: 9px; letter-spacing: .13em; }
   .home-link { display: none; }
   .contents-toggle { display: flex; width: 36px; height: 32px; padding: 7px; flex-direction: column; justify-content: space-between; border: 1px solid #d7dadd; border-radius: 4px; background: #fff; }
   .contents-toggle span { display: block; height: 1px; background: #68727b; }
-  .page-layout { display: block; width: 100%; padding: 18px 18px 55px; }
-  .sidebar { display: none; position: fixed; z-index: 6; top: 56px; right: 12px; left: 12px; width: auto; max-height: min(70vh, calc(100dvh - 72px)); box-shadow: 0 4px 14px rgba(0,0,0,.12); font-size: 14px; }
+  .page-layout { display: block; width: 100%; padding: 18px 24px 55px; }
+  .sidebar { display: none; position: fixed; z-index: 6; top: 56px; right: 12px; left: 12px; width: auto; max-height: min(60vh, calc(100dvh - 72px)); box-shadow: 0 4px 14px rgba(0,0,0,.12); font-size: 13px; }
   .sidebar.is-open { display: block; }
   .sidebar-heading { padding: 7px 12px; }
   .toc-link { padding: 7px 12px; }
@@ -145,14 +145,14 @@ a { color: #276b9f; }
   .toc-child { padding: 6px 9px; }
   .article { width: 100%; }
   .article-heading { margin-bottom: 27px; }
-  .article-heading h1 { max-width: 340px; font-size: 31px; line-height: 1.05; }
-  .byline { font-size: 15px; }
+  .article-heading h1 { max-width: 310px; font-size: 28px; line-height: 1.1; }
+  .byline { font-size: 14px; }
   .article-section { margin-bottom: 31px; scroll-margin-top: 65px; }
-  .article-section h2 { font-size: 24px; }
-  .article-section h3 { font-size: 20px; }
+  .article-section h2 { font-size: 22px; }
+  .article-section h3 { font-size: 18px; }
   .project-article { margin-top: 40px; padding-top: 28px; }
   .project-heading { scroll-margin-top: 65px; }
-  .project-heading h2 { font-size: 28px; }
+  .project-heading h2 { font-size: 25px; }
   .project-introduction blockquote { font-size: 15px; }
   .formula-block { padding: 12px; }
   .formula-block pre { font-size: 12px; }
