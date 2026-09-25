@@ -109,7 +109,7 @@ const projects = [
     formula: 'p(y = 1 | x) = σ(w₀ + w₁x₁ + w₂x₂)\nσ(z) = 1 / (1 + e⁻ᶻ)\ndecision boundary: p = 0.5',
     formulaNote: 'The boundary is where the model is equally likely to assign either class.',
     result: 'After 2,500 updates, the learned weights are [0.08, 2.96, 3.53]. The model classifies 97.8% of its own generated training points correctly.',
-    reflection: 'This exercise let me compare predicted probabilities with a decision boundary. The high training accuracy comes from clearly separated generated groups; it does not show how the model performs on new data.', chart: 'logistic',
+    reflection: 'This exercise helped me compare predicted probabilities with a decision boundary. The high training accuracy comes from clearly separated generated groups; it does not show how the model performs on new data.', chart: 'logistic',
   },
   {
     number: '12', folder: '12_naive_bayes', title: 'Naive Bayes From Scratch', topic: 'Classifying words with probability',
@@ -160,7 +160,7 @@ const plot = {
   pca: '<g class="points"><circle cx="160" cy="126" r="4"/><circle cx="183" cy="116" r="4"/><circle cx="206" cy="114" r="4"/><circle cx="233" cy="100" r="4"/><circle cx="257" cy="92" r="4"/><circle cx="284" cy="87" r="4"/><circle cx="310" cy="77" r="4"/><circle cx="338" cy="70" r="4"/><circle cx="363" cy="60" r="4"/><circle cx="389" cy="53" r="4"/></g><path class="series-alt" d="M124 137L430 40"/><path class="axis" d="M270 96L352 70"/>',
   ab: '<rect class="bar" x="165" y="92" width="74" height="58"/><rect class="bar-alt" x="305" y="78" width="74" height="72"/><text x="191" y="166">A 11.0%</text><text x="329" y="166">B 13.3%</text>',
   bayesian: '<path class="series" d="M68 149C123 148 150 137 181 94C206 59 227 35 258 39C294 44 302 100 337 126C367 148 408 149 480 149"/><path class="series-alt" d="M68 149C150 149 183 141 220 111C250 87 275 51 308 42C347 33 359 82 389 116C414 142 443 148 480 149"/>',
-  sigmoid: '<path class="series" d="M70 139C168 139 199 134 235 113C270 92 263 58 310 43C345 32 390 34 475 34"/><g class="points"><circle cx="112" cy="46" r="4"/><circle cx="150" cy="51" r="4"/><circle cx="187" cy="59" r="4"/><circle cx="224" cy="68" r="4"/><circle cx="272" cy="104" r="4"/><circle cx="318" cy="121" r="4"/><circle cx="366" cy="130" r="4"/><circle cx="420" cy="138" r="4"/></g>',
+  churn: '<path class="series" d="M70 139C168 139 199 134 235 113C270 92 263 58 310 43C345 32 390 34 475 34"/><g class="points"><circle cx="112" cy="46" r="4"/><circle cx="150" cy="51" r="4"/><circle cx="187" cy="59" r="4"/><circle cx="224" cy="68" r="4"/><circle cx="272" cy="104" r="4"/><circle cx="318" cy="121" r="4"/><circle cx="366" cy="130" r="4"/><circle cx="420" cy="138" r="4"/></g>',
   time: '<path class="series" d="M65 123L96 112L127 120L158 97L189 103L220 84L251 96L282 68L313 79L344 57L375 68L406 43L437 53L466 34"/><path class="series-alt" d="M375 68L406 83L437 73L466 89"/>',
   portfolio: '<path class="series" d="M74 132C146 109 212 84 272 76C339 67 398 53 470 36"/><circle class="point-main" cx="272" cy="76" r="6"/><text x="292" y="70">best tested mix</text>',
   matrix: '<g class="heat"><rect x="146" y="38" width="58" height="30"/><rect x="208" y="38" width="58" height="30"/><rect x="270" y="38" width="58" height="30"/><rect x="332" y="38" width="58" height="30"/><rect x="146" y="72" width="58" height="30"/><rect x="208" y="72" width="58" height="30"/><rect x="270" y="72" width="58" height="30"/><rect x="332" y="72" width="58" height="30"/><rect x="146" y="106" width="58" height="30"/><rect x="208" y="106" width="58" height="30"/><rect x="270" y="106" width="58" height="30"/><rect x="332" y="106" width="58" height="30"/></g><text x="280" y="60">1.9*</text><text x="218" y="94">3.3*</text><text x="156" y="128">1.0*</text>',
@@ -172,58 +172,73 @@ const plot = {
   pricing: '<path class="series" d="M70 35L465 145"/><path class="series-alt" d="M70 145Q259 12 465 145"/><circle class="point-main" cx="285" cy="75" r="6"/><text x="299" y="68">$54.50</text>',
 };
 
-const sections = [
-  { id: 'introduction', label: 'Introduction' },
-  { id: 'why-math', label: 'Why maths matters' },
-  { id: 'math-foundations', label: 'Maths foundations' },
-];
-
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
-}
-
-function section(id, tocLabel, heading, content) {
-  sections.push({ id, label: tocLabel, project: true });
-  return `<section class="article-section" id="${id}" data-section="${id}"><h3>${heading}</h3>${content}</section>`;
 }
 
 function chart(project) {
   return `<figure class="result-figure"><svg viewBox="0 0 520 190" role="img" aria-label="Illustrative chart for ${escapeHtml(project.title)}">${plot.base}${plot[project.chart]}</svg></figure>`;
 }
 
-function projectArticle(project) {
+function renderProjectSection(project) {
   const key = `project-${project.number}`;
   const notebook = `${repo}/blob/main/${project.folder}/${project.folder}.ipynb`;
-  const introId = `${key}-introduction`;
-  sections.push({ id: introId, label: 'Introduction', project: true });
-  const contents = [
-    section(`${key}-data`, 'Data Profile', 'Data Profile', `<p>${escapeHtml(project.profile)}</p>`),
-    section(`${key}-method`, 'Method', 'Method', `<p>${escapeHtml(project.method)}</p>`),
-    section(`${key}-formula`, 'Formula', 'Formula', `<div class="formula-block"><pre>${escapeHtml(project.formula)}</pre><p>${escapeHtml(project.formulaNote)}</p></div>`),
-    section(`${key}-result`, 'Result', 'Result', `<p>${escapeHtml(project.result)}</p>${chart(project)}`),
-    section(`${key}-reflection`, 'What I learned', 'What I learned', `<p>${escapeHtml(project.reflection)}</p>`),
-  ].join('');
-  return `<article class="project-article" id="${key}" data-project="${key}">
-    <header class="project-heading" data-section="${introId}">
+  return `
+    <div id="${key}" class="section level2 project-section" data-section="${key}">
       <p class="project-kicker">PROJECT ${project.number} <span>·</span> ${escapeHtml(project.topic.toUpperCase())}</p>
-      <h2>${escapeHtml(project.title)}</h2>
-      <div class="project-introduction" id="${introId}"><h3>Introduction</h3><blockquote>${escapeHtml(project.question)}</blockquote></div>
-      <p class="source-links"><a href="${notebook}" target="_blank" rel="noreferrer">Open notebook ↗</a></p>
-    </header>
-    ${contents}
-  </article>`;
+      <h2>${project.number} ${escapeHtml(project.title)}</h2>
+      
+      <div id="${key}-introduction" class="section level3" data-section="${key}-introduction">
+        <h3>Introduction</h3>
+        <blockquote><p>${escapeHtml(project.question)}</p></blockquote>
+        <p class="source-links"><a href="${notebook}" target="_blank" rel="noreferrer">Open notebook ↗</a></p>
+      </div>
+
+      <div id="${key}-data" class="section level3" data-section="${key}-data">
+        <h3>Data Profile</h3>
+        <p>${escapeHtml(project.profile)}</p>
+      </div>
+
+      <div id="${key}-method" class="section level3" data-section="${key}-method">
+        <h3>Method</h3>
+        <p>${escapeHtml(project.method)}</p>
+      </div>
+
+      <div id="${key}-formula" class="section level3" data-section="${key}-formula">
+        <h3>Formula</h3>
+        <div class="formula-block">
+          <pre>${escapeHtml(project.formula)}</pre>
+          <p class="caption">${escapeHtml(project.formulaNote)}</p>
+        </div>
+      </div>
+
+      <div id="${key}-result" class="section level3" data-section="${key}-result">
+        <h3>Result</h3>
+        <p>${escapeHtml(project.result)}</p>
+        ${chart(project)}
+      </div>
+
+      <div id="${key}-reflection" class="section level3" data-section="${key}-reflection">
+        <h3>What I learned</h3>
+        <p>${escapeHtml(project.reflection)}</p>
+      </div>
+    </div>
+  `;
 }
 
-const introduction = `
-  <header class="article-heading">
-    <h1>Applied Math for Data Science</h1>
-    <p class="byline">Vidhya Walke</p>
-  </header>
-  <section class="article-section" id="introduction" data-section="introduction">
+const headerContent = `
+  <div id="header">
+    <h1 class="title toc-ignore">Applied Math for Data Science</h1>
+    <h4 class="author">Vidhya Walke</h4>
+    <h4 class="date">September 25, 2026</h4>
+  </div>
+
+  <div id="introduction" class="section level2" data-section="introduction">
     <h2>Introduction</h2>
     <p>I built these Python projects to practise the maths behind data science. They gave me hands-on experience with regression, optimization, probability, PCA, forecasting, clustering, classification, recommendation systems, and anomaly detection. In each project, I implemented the main calculation, checked the result, and wrote about what I learned.</p>
-  </section>
-  <section class="article-section" id="why-math" data-section="why-math">
+  </div>
+
+  <div id="why-math" class="section level2" data-section="why-math">
     <h2>Why Mathematics Matters in Data Science</h2>
     <p>When I work with data, mathematics helps me understand what a model is doing and whether its results make sense. It gives me a clear way to move from data to insight, then from insight to a decision.</p>
     <ul>
@@ -233,8 +248,9 @@ const introduction = `
       <li>Knowing how a model works makes it easier to explain its results to other people.</li>
     </ul>
     <p><strong>For me, learning the maths behind a model is part of building data science work I can explain and trust.</strong></p>
-  </section>
-  <section class="article-section" id="math-foundations" data-section="math-foundations">
+  </div>
+
+  <div id="math-foundations" class="section level2" data-section="math-foundations">
     <h2>Four Mathematical Foundations</h2>
     <p>These projects helped me practise four areas of maths that appear throughout data science:</p>
     <ol>
@@ -244,12 +260,11 @@ const introduction = `
       <li><strong>Discrete mathematics and geometry.</strong> Distances, shapes, and logical structures help organize points into clusters and identify unusual observations.</li>
     </ol>
     <p>The projects below show how I used these ideas in Python, from calculating a regression line to comparing forecasts and detecting anomalies.</p>
-  </section>
-  <hr class="article-divider" />`;
+  </div>
+`;
 
-const article = document.querySelector('#article');
-article.innerHTML = introduction + projects.map(projectArticle).join('') + `
-  <section class="article-section references-section" id="references" data-section="references">
+const referencesContent = `
+  <div id="references" class="section level2" data-section="references">
     <h2>References</h2>
     <p>I used these sources to study and check the methods and formulas. The data, Python implementations, and results shown here come from my project scripts and notebooks.</p>
     <ol class="reference-list">
@@ -265,65 +280,141 @@ article.innerHTML = introduction + projects.map(projectArticle).join('') + `
       <li><span>Towards Data Science. (n.d.).</span> <em>Mathematics for data science.</em> <a href="https://towardsdatascience.com/mathematics-for-data-science-e53939ee8306/" target="_blank" rel="noreferrer">https://towardsdatascience.com/mathematics-for-data-science-e53939ee8306/</a><small>Background reading for the role and main areas of mathematics in data science.</small></li>
     </ol>
     <p class="repository-source"><a href="${repo}" target="_blank" rel="noreferrer">View my code, notebooks, and project guides on GitHub ↗</a></p>
-  </section>
-  <footer class="article-footer">Vidhya Walke · <a href="${repo}" target="_blank" rel="noreferrer">GitHub repository</a></footer>`;
+  </div>
+  <footer class="article-footer">Vidhya Walke · <a href="${repo}" target="_blank" rel="noreferrer">GitHub repository</a></footer>
+`;
 
-const toc = document.querySelector('#table-of-contents');
-const projectToc = projects.map((project) => {
-  const key = `project-${project.number}`;
-  return `<div class="toc-project" data-project-nav="${key}">
-    <a class="toc-project-link" href="#${key}-introduction" data-target="${key}-introduction"><span>${project.number}</span><span class="toc-project-title">${escapeHtml(project.title)}</span></a>
-  </div>`;
-}).join('');
-toc.innerHTML = `<div class="toc-projects">${projectToc}</div>`;
+const articleEl = document.querySelector('#article');
+articleEl.innerHTML = headerContent + projects.map(renderProjectSection).join('') + referencesContent;
 
-const tocLinks = [...toc.querySelectorAll('[data-target]')];
-const navGroups = [...toc.querySelectorAll('.toc-project')];
+// Build Table of Contents matching Tocify Bootstrap 3 theme
+const tocEl = document.querySelector('#TOC');
+let tocHtml = '<ul class="tocify-header list-group">';
 
-const trackedSections = [...document.querySelectorAll('[data-section]')];
-let updateQueued = false;
-let activeProjectGroup = null;
-function updateCurrentSection() {
-  updateQueued = false;
-  const marker = 155;
-  let current = trackedSections[0];
-  for (const candidate of trackedSections) {
-    if (candidate.getBoundingClientRect().top <= marker) current = candidate;
-    else break;
+tocHtml += '<li class="tocify-item list-group-item" data-unique="introduction"><a href="#introduction">Introduction</a></li>';
+tocHtml += '<li class="tocify-item list-group-item" data-unique="why-math"><a href="#why-math">Why maths matters</a></li>';
+tocHtml += '<li class="tocify-item list-group-item" data-unique="math-foundations"><a href="#math-foundations">Maths foundations</a></li>';
+
+projects.forEach((p) => {
+  const key = `project-${p.number}`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}"><a href="#${key}">${p.number} ${escapeHtml(p.title)}</a></li>`;
+  tocHtml += `<ul class="tocify-subheader list-group" data-parent="${key}">`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}-introduction"><a href="#${key}-introduction">Introduction</a></li>`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}-data"><a href="#${key}-data">Data Profile</a></li>`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}-method"><a href="#${key}-method">Method</a></li>`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}-formula"><a href="#${key}-formula">Formula</a></li>`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}-result"><a href="#${key}-result">Result</a></li>`;
+  tocHtml += `<li class="tocify-item list-group-item" data-unique="${key}-reflection"><a href="#${key}-reflection">What I learned</a></li>`;
+  tocHtml += `</ul>`;
+});
+
+tocHtml += '<li class="tocify-item list-group-item" data-unique="references"><a href="#references">References</a></li>';
+tocHtml += '</ul>';
+
+tocEl.innerHTML = tocHtml;
+
+// ScrollSpy & Tocify Interaction
+const allTrackedSections = [...document.querySelectorAll('[data-section]')];
+const tocItems = [...tocEl.querySelectorAll('.tocify-item')];
+const subheaders = [...tocEl.querySelectorAll('.tocify-subheader')];
+
+let scrollTimeout = null;
+let lastActiveKey = null;
+
+function highlightCurrentSection() {
+  const scrollPos = window.scrollY + 80;
+  let currentSec = allTrackedSections[0];
+
+  for (let i = 0; i < allTrackedSections.length; i++) {
+    const section = allTrackedSections[i];
+    if (section.offsetTop <= scrollPos) {
+      currentSec = section;
+    } else {
+      break;
+    }
   }
-  if (!current) return;
-  const currentId = current.dataset.section;
-  const currentGroup = current.closest('[data-project]')?.id;
-  tocLinks.forEach((link) => {
-    const linkGroup = link.closest('[data-project-nav]')?.dataset.projectNav;
-    link.classList.toggle('is-current', link.dataset.target === currentId || linkGroup === currentGroup);
-  });
-  navGroups.forEach((group) => {
-    const isCurrentGroup = group.dataset.projectNav === currentGroup;
-    group.classList.toggle('is-current-project', isCurrentGroup);
-    if (isCurrentGroup && currentGroup !== activeProjectGroup) {
-      group.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+
+  if (!currentSec) return;
+  const currentId = currentSec.getAttribute('data-section');
+
+  // Determine active project or top-level section
+  let activeParentKey = null;
+  if (currentId.startsWith('project-')) {
+    const parts = currentId.split('-');
+    activeParentKey = `${parts[0]}-${parts[1]}`;
+  }
+
+  // Update open/close subheaders (showAndHide behavior)
+  subheaders.forEach((sub) => {
+    const parentKey = sub.getAttribute('data-parent');
+    if (parentKey === activeParentKey) {
+      sub.classList.add('is-open');
+    } else {
+      sub.classList.remove('is-open');
     }
   });
-  activeProjectGroup = currentGroup;
+
+  // Update active item class
+  let currentActiveItem = null;
+  tocItems.forEach((item) => {
+    const unique = item.getAttribute('data-unique');
+    const isExact = unique === currentId;
+    const isParent = !currentId.includes('-') && unique === currentId;
+    const isProjectHeader = unique === activeParentKey && currentId === activeParentKey;
+    
+    if (isExact || isProjectHeader) {
+      item.classList.add('active');
+      currentActiveItem = item;
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  // Keep active item in view inside the TOC container
+  if (currentActiveItem && activeParentKey !== lastActiveKey) {
+    lastActiveKey = activeParentKey;
+    const tocRect = tocEl.getBoundingClientRect();
+    const itemRect = currentActiveItem.getBoundingClientRect();
+    if (itemRect.top < tocRect.top || itemRect.bottom > tocRect.bottom) {
+      currentActiveItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
 }
-function scheduleCurrentSection() {
-  if (updateQueued) return;
-  updateQueued = true;
-  requestAnimationFrame(updateCurrentSection);
+
+function onScrollThrottled() {
+  if (scrollTimeout) return;
+  scrollTimeout = requestAnimationFrame(() => {
+    highlightCurrentSection();
+    scrollTimeout = null;
+  });
 }
-window.addEventListener('scroll', scheduleCurrentSection, { passive: true });
-window.addEventListener('resize', scheduleCurrentSection);
-tocLinks.forEach((link) => link.addEventListener('click', () => {
-  tocLinks.forEach((item) => item.classList.toggle('is-current', item === link));
-  document.querySelector('.sidebar').classList.remove('is-open');
-  document.querySelector('.contents-toggle').setAttribute('aria-expanded', 'false');
-}));
-const contentsToggle = document.querySelector('.contents-toggle');
-contentsToggle.addEventListener('click', () => {
-  const isOpen = contentsToggle.getAttribute('aria-expanded') !== 'true';
-  contentsToggle.setAttribute('aria-expanded', String(isOpen));
-  contentsToggle.setAttribute('aria-label', isOpen ? 'Close contents' : 'Open contents');
-  document.querySelector('.sidebar').classList.toggle('is-open', isOpen);
+
+window.addEventListener('scroll', onScrollThrottled, { passive: true });
+window.addEventListener('resize', onScrollThrottled);
+
+// Smooth click navigation
+tocEl.addEventListener('click', (e) => {
+  const link = e.target.closest('a');
+  if (!link) return;
+  const targetId = link.getAttribute('href').slice(1);
+  const targetElement = document.getElementById(targetId);
+  if (targetElement) {
+    e.preventDefault();
+    const targetOffset = targetElement.getBoundingClientRect().top + window.scrollY - 65;
+    window.scrollTo({ top: targetOffset, behavior: 'smooth' });
+    history.pushState(null, null, `#${targetId}`);
+    setTimeout(highlightCurrentSection, 150);
+  }
 });
-updateCurrentSection();
+
+// Mobile navbar toggle for TOC
+const navToggle = document.querySelector('.navbar-toggle');
+if (navToggle) {
+  navToggle.addEventListener('click', () => {
+    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', String(!isExpanded));
+    tocEl.style.display = isExpanded ? 'none' : 'block';
+  });
+}
+
+highlightCurrentSection();
