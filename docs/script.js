@@ -276,6 +276,7 @@ toc.querySelectorAll('.toc-toggle').forEach((button) => {
 
 const trackedSections = [...document.querySelectorAll('[data-section]')];
 let updateQueued = false;
+let activeProjectGroup = null;
 function updateCurrentSection() {
   updateQueued = false;
   const marker = 155;
@@ -292,7 +293,11 @@ function updateCurrentSection() {
     const isCurrentGroup = group.dataset.projectNav === currentGroup;
     group.classList.toggle('is-current-project', isCurrentGroup);
     toggleGroup(group, isCurrentGroup);
+    if (isCurrentGroup && currentGroup !== activeProjectGroup) {
+      group.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
   });
+  activeProjectGroup = currentGroup;
 }
 function scheduleCurrentSection() {
   if (updateQueued) return;

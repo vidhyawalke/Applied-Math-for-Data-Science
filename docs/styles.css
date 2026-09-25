@@ -21,27 +21,28 @@ a { color: #276b9f; }
 .home-link { color: #777; font: 25px/1 var(--sans); text-decoration: none; }
 .home-link:hover { color: var(--blue); }
 
-.page-layout { display: grid; grid-template-columns: 270px minmax(0, 1000px); gap: clamp(40px, 5.2vw, 78px); width: min(1450px, 100%); margin: 0 auto; padding: 82px 28px 90px; align-items: start; }
-.sidebar { position: sticky; top: 98px; max-height: calc(100vh - 118px); overflow: auto; border: 1px solid #d1d4d7; border-radius: 6px; background: #fff; font-family: var(--serif); font-size: 15px; }
-.sidebar-heading { margin: 0; padding: 9px 16px 7px; color: #737b82; background: #fff; border-bottom: 1px solid #e1e3e5; font: 10px var(--sans); letter-spacing: .12em; }
+.page-layout { display: grid; grid-template-columns: 215px minmax(0, 1000px); gap: clamp(38px, 5vw, 72px); width: min(1420px, 100%); margin: 0 auto; padding: 82px 28px 90px; align-items: start; }
+.sidebar { position: sticky; top: 98px; max-height: 52vh; overflow: auto; border: 1px solid #d1d4d7; border-radius: 6px; background: #fff; font-family: var(--serif); font-size: 14px; }
+.sidebar-heading { margin: 0; padding: 7px 12px 6px; color: #737b82; background: #fff; border-bottom: 1px solid #e1e3e5; font: 9px var(--sans); letter-spacing: .12em; }
 .toc-overview { padding: 0; }
 .toc-link,.toc-project-link,.toc-child { display: block; color: #373d43; text-decoration: none; }
-.toc-link { padding: 8px 16px; }
+.toc-link { padding: 6px 12px; }
 .toc-link:hover,.toc-project-link:hover,.toc-child:hover { background: #f2f5f7; color: #214f76; }
 .toc-link.is-current,.toc-child.is-current,.toc-project-link.is-current { color: #fff; background: var(--blue); }
 .toc-project { border-top: 1px solid #e8eaec; }
-.toc-project-row { display: grid; grid-template-columns: minmax(0,1fr) 32px; align-items: stretch; }
-.toc-project-link { min-width: 0; padding: 8px 10px 8px 16px; font-size: 14px; line-height: 1.35; }
+.toc-project-row { display: grid; grid-template-columns: minmax(0,1fr) 27px; align-items: stretch; }
+.toc-project-link { min-width: 0; padding: 6px 7px 6px 12px; font-size: 12px; line-height: 1.3; }
 .toc-project-link span { display: inline-block; min-width: 24px; margin-right: 3px; color: #89939b; font: 10px var(--mono); }
 .toc-project-link.is-current span,.toc-project.is-current-project .toc-project-link span { color: inherit; opacity: .8; }
-.toc-toggle { width: 32px; border: 0; color: #6b747d; background: transparent; font: 17px var(--sans); cursor: pointer; }
+.toc-toggle { width: 27px; border: 0; color: #6b747d; background: transparent; font: 15px var(--sans); cursor: pointer; }
 .toc-toggle:hover { color: var(--blue); background: #f1f4f6; }
 .toc-project.is-current-project .toc-project-row { background: #eef4f8; }
 .toc-project.is-current-project .toc-project-link { color: #245b86; font-weight: 700; }
 .toc-project.is-current-project .toc-toggle { color: #245b86; }
-.toc-children { padding: 0 0 6px 18px; }
+.toc-projects { max-height: 32vh; overflow: auto; overscroll-behavior: contain; }
+.toc-children { padding: 0 0 4px 14px; }
 .toc-children[hidden] { display: none; }
-.toc-child { padding: 5px 8px; color: #656d74; font-size: 13px; line-height: 1.35; }
+.toc-child { padding: 4px 7px; color: #656d74; font-size: 12px; line-height: 1.3; }
 .toc-reference { border-top: 1px solid #e8eaec; }
 
 .article { min-width: 0; max-width: 1000px; }
@@ -97,7 +98,7 @@ a { color: #276b9f; }
 .article-footer a:hover { text-decoration: underline; }
 
 @media (max-width: 900px) {
-  .page-layout { grid-template-columns: 235px minmax(0,1fr); gap: 32px; padding: 55px 20px 70px; }
+  .page-layout { grid-template-columns: 195px minmax(0,1fr); gap: 27px; padding: 55px 20px 70px; }
   .sidebar { top: 83px; }
 }
 @media (max-width: 680px) {
@@ -105,7 +106,8 @@ a { color: #276b9f; }
   .topbar { height: 58px; padding: 0 15px; }
   .site-title { font-size: 10px; }
   .page-layout { display: flex; flex-direction: column; gap: 22px; padding: 18px 15px 60px; }
-  .sidebar { position: sticky; z-index: 3; top: 58px; width: 100%; max-height: 36vh; font-size: 14px; }
+  .sidebar { position: sticky; z-index: 3; top: 58px; width: 100%; max-height: 36vh; font-size: 13px; }
+  .toc-projects { max-height: 22vh; }
   .sidebar-heading { padding: 6px 12px; }
   .toc-link { padding: 6px 12px; }
   .toc-project-link { padding: 6px 8px 6px 12px; }
