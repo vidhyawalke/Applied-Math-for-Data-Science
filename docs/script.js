@@ -4,152 +4,152 @@ const projects = [
   {
     number: '01', folder: '01_linear_regression', title: 'Linear Regression From Scratch', topic: 'Fitting a line',
     question: 'How can one straight line summarize the relationship between two measurements?',
-    profile: 'The example has six paired observations. The input values are x = 1, 2, 3, 4, 5, 6 and the observed values are y = 1.2, 1.9, 3.2, 3.8, 5.1, 5.8.',
-    method: 'The code first finds the average of each column. It measures how x and y move together, divides that by the variation in x to get the slope, then chooses an intercept so the fitted line passes through the two averages.',
+    profile: 'I used six paired observations: x = 1, 2, 3, 4, 5, 6 and y = 1.2, 1.9, 3.2, 3.8, 5.1, 5.8.',
+    method: 'I calculated the slope from the covariance of x and y divided by the variance of x. Then I used the two averages to find the intercept, so the fitted line passes through the centre of the data.',
     formula: 'm = Σ[(xᵢ − x̄)(yᵢ − ȳ)] / Σ[(xᵢ − x̄)²]\nb = ȳ − m x̄\nŷ = mx + b',
     formulaNote: 'm is the slope, b is the intercept, and ŷ is the model’s prediction for an input x.',
     result: 'The fitted line is ŷ = 0.95x + 0.18. Its mean squared error is 0.022, so the average squared gap between the six observations and the line is small for this example.',
-    reflection: 'Least squares gives a compact summary of a roughly straight pattern. Six points are enough to see the calculation, but not enough to claim that the line will predict new data well.', chart: 'line',
+    reflection: 'I learned how least squares turns a roughly straight pattern into a slope and intercept. The six-point example makes the calculation clear, but it is too small to judge how well the line predicts new data.', chart: 'line',
   },
   {
     number: '02', folder: '02_gradient_descent', title: 'Gradient Descent Visualizer', topic: 'Following a slope',
     question: 'How can a derivative guide us toward the lowest point of a curve?',
-    profile: 'The objective is a one-variable quadratic, f(x) = (x − 3)² + 1. The algorithm starts at x = −2 and takes 30 steps.',
-    method: 'At each step, the derivative gives the local direction of increase. The algorithm moves in the opposite direction. The learning rate controls how far it moves each time.',
+    profile: 'I used the curve f(x) = (x − 3)² + 1, started at x = −2, and ran 30 updates.',
+    method: 'I calculated the derivative at the current x-value and stepped in the opposite direction. I set the learning rate to 0.15 to control the size of each step.',
     formula: 'f(x) = (x − 3)² + 1\nf′(x) = 2(x − 3)\nxₜ₊₁ = xₜ − ηf′(xₜ)',
     formulaNote: 'η is the learning rate. Here η = 0.15, and the minimum is at x = 3.',
     result: 'After 30 updates, x = 3.000 and f(x) = 1.000. The steps get smaller as the slope flattens near the minimum.',
-    reflection: 'A very small learning rate can take a long time to get close. A very large one can jump over the low point. This simple curve makes that trade-off visible.', chart: 'descent',
+    reflection: 'I saw how the learning rate changes the path: small steps move slowly, while large steps can jump past the minimum. The derivative gives the direction; the learning rate sets the pace.', chart: 'descent',
   },
   {
     number: '03', folder: '03_pca', title: 'PCA From Scratch', topic: 'Reducing dimensions',
     question: 'Can two measurements be summarized by one direction while keeping most of their variation?',
-    profile: 'The project creates 60 two-feature points with a fixed random seed. The features are correlated, so many points stretch along a shared direction.',
-    method: 'The code centers both features, calculates their covariance matrix, and finds its eigenvalues and eigenvectors. It sorts the directions by eigenvalue, then projects the points onto the first direction.',
+    profile: 'I generated 60 points with two correlated features. I fixed the random seed so the same points appear each time.',
+    method: 'I centred both features, calculated the covariance matrix, and found its eigenvalues and eigenvectors. I sorted the directions by eigenvalue, then projected the data onto the first principal direction.',
     formula: 'C = (X − μ)ᵀ(X − μ) / (n − 1)\nCv = λv\nZ = (X − μ)v₁',
     formulaNote: 'C is the covariance matrix. The eigenvector v₁ with the largest eigenvalue λ₁ is the first principal direction; Z is the one-dimensional projection.',
     result: 'The eigenvalues are 7.15 and 0.10. Keeping only the first principal direction retains 98.6% of the variance in this generated example.',
-    reflection: 'PCA can compress correlated measurements with little information loss. It does not choose directions using a target label, and principal components can be harder to interpret than the original features.', chart: 'pca',
+    reflection: 'I learned to measure how much variation each principal direction keeps. The first direction captured most of this dataset’s variation, though principal components can be harder to explain than the original features.', chart: 'pca',
   },
   {
     number: '04', folder: '04_statistical_ab_testing', title: 'Statistical A/B Testing Engine', topic: 'Comparing rates',
     question: 'Is the higher conversion rate in group B strong evidence of a real difference?',
-    profile: 'Group A has 55 conversions from 500 visitors. Group B has 68 conversions from 510 visitors. The outcome for each visitor is either converted or not converted.',
-    method: 'The test combines both groups to estimate a shared conversion rate under the assumption that A and B are equally effective. It uses that pooled rate to estimate the standard error of the observed difference.',
+    profile: 'I compared 55 conversions from 500 visitors in A with 68 from 510 visitors in B. Each visitor either converted or did not.',
+    method: 'I calculated each group’s conversion rate, then used the pooled rate to estimate the standard error under the assumption that the groups perform equally.',
     formula: 'p̂ₐ = cₐ / nₐ     p̂ᵦ = cᵦ / nᵦ\np̂ = (cₐ + cᵦ) / (nₐ + nᵦ)\nz = (p̂ᵦ − p̂ₐ) / √[p̂(1 − p̂)(1/nₐ + 1/nᵦ)]',
     formulaNote: 'The two-sided p-value measures how often a difference at least this large would appear if the true rates were equal.',
     result: 'A converts at 11.0% and B at 13.3%, a difference of 2.3 percentage points. The test returns z = 1.13 and p = 0.257, which is above the common 0.05 threshold.',
-    reflection: 'In this example, the data does not provide strong evidence to reject equal conversion rates. A p-value is not the probability that a version is better; experiment design and sample size matter too.', chart: 'ab',
+    reflection: 'I learned to read the p-value in context: this result does not give strong evidence of a difference at the 0.05 level. A p-value is not the probability that one version is better, and the experiment design matters.', chart: 'ab',
   },
   {
     number: '05', folder: '05_bayesian_ab_testing', title: 'Bayesian A/B Testing', topic: 'Updating a belief',
     question: 'After observing conversions, how likely is it that B has a higher conversion rate than A?',
-    profile: 'The project reuses 55 conversions from 500 visitors for A and 68 from 510 for B. Each rate begins with a uniform Beta(1, 1) prior.',
-    method: 'For a Beta prior and binary conversion data, add the conversions to α and the non-conversions to β. The code then draws 100,000 rates from each updated distribution and counts how often B’s draw is larger.',
+    profile: 'I reused the A/B counts and began each conversion rate with a Beta(1, 1) prior, which gives every rate from 0 to 1 equal starting weight.',
+    method: 'I updated each Beta distribution with the observed conversions and non-conversions, then drew 100,000 rates from each posterior and counted how often B’s rate was higher.',
     formula: 'p ~ Beta(α, β)\nαposterior = αprior + conversions\nβposterior = βprior + non-conversions\nP(B > A) ≈ count(rateB > rateA) / draws',
     formulaNote: 'The posterior is the updated distribution for a conversion rate after observing the data.',
     result: 'The posterior means are 11.2% for A and 13.5% for B. In the simulation, B’s rate is higher in 86.9% of the paired draws.',
-    reflection: 'This expresses uncertainty directly, but the result depends on the prior and observed data. An 86.9% probability is encouraging, yet it is not certainty that B will perform better in future traffic.', chart: 'bayesian',
+    reflection: 'This approach let me describe uncertainty as a probability. The result depends on both the prior and the observed data, so an 86.9% estimate is not a guarantee about future visitors.', chart: 'bayesian',
   },
   {
     number: '06', folder: '06_customer_churn_probability', title: 'Customer Churn Probability', topic: 'Turning features into probabilities',
     question: 'Can tenure and monthly bill help a small model estimate the chance that a customer churns?',
-    profile: 'The example has 12 made-up customers with tenure, monthly bill, and a binary churn label. Both input features are standardized before fitting.',
-    method: 'The model combines an intercept with weighted features, applies the sigmoid function to get a probability, and updates the weights with the average binary cross-entropy gradient for 3,000 iterations.',
+    profile: 'I made a dataset of 12 customers with tenure, monthly bill, and a churn label. I standardized the two input features before fitting the model.',
+    method: 'I combined the features with learned weights, passed the score through a sigmoid to get a probability, and updated the weights using binary cross-entropy over 3,000 iterations.',
     formula: 'z = w₀ + w₁(tenure) + w₂(bill)\np(churn = 1) = σ(z) = 1 / (1 + e⁻ᶻ)',
     formulaNote: 'Standardizing the inputs puts tenure and bill on comparable scales. The sigmoid maps any score to a value between 0 and 1.',
     result: 'The learned weights are [0.54, −3.46, 7.05] for the intercept, tenure, and bill. The twelve training probabilities range from about 0.00 to 1.00, reflecting how this tiny labelled example separates the cases.',
-    reflection: 'These probabilities come from only twelve invented customers and are not useful for real retention decisions. They demonstrate how a linear score can become a probability, not how to build a validated churn model.', chart: 'churn',
+    reflection: 'This exercise helped me connect feature weights, a sigmoid function, and a probability. With only 12 invented customers, the result shows how the calculation works; it does not validate a churn model.', chart: 'churn',
   },
   {
     number: '07', folder: '07_time_series_forecasting', title: 'Time-Series Forecasting', topic: 'Trend and seasonality',
     question: 'How can a simple forecast reuse a repeating seasonal pattern?',
-    profile: 'The data contains 36 generated time steps: a starting level of 10, a trend of 0.25 per step, a six-step seasonal cycle, and small random noise.',
-    method: 'A six-value moving average smooths short-term changes. For the forecast, the last six observations are repeated and shifted by the change between the latest value and the value one seasonal cycle earlier.',
+    profile: 'I generated 36 time points with a starting level of 10, a trend of 0.25 per step, a six-step seasonal pattern, and a small amount of random noise.',
+    method: 'I used a six-point moving average to smooth short-term changes. For the forecast, I repeated the last seasonal cycle and adjusted it by the recent change in level.',
     formula: 'Moving averageₜ = (yₜ + ⋯ + yₜ₋₅) / 6\nŷₜ₊ₕ = yₜ₊ₕ₋₆ + (yₜ − yₜ₋₆)',
     formulaNote: 'The second expression repeats the last seasonal cycle and adds the recent level change.',
     result: 'The next six toy forecasts are 20.1, 19.8, 18.8, 18.1, 18.0, and 18.6. They carry the recent upward level forward while preserving the six-step shape.',
-    reflection: 'This is a seasonal-naive example, not a general forecasting model. It assumes the pattern repeats and does not estimate forecast uncertainty or test accuracy on held-out data.', chart: 'time',
+    reflection: 'I learned how a seasonal-naive forecast carries a repeating pattern forward. It assumes the pattern continues; I did not test forecast accuracy on held-out data or estimate uncertainty.', chart: 'time',
   },
   {
     number: '08', folder: '08_portfolio_optimization', title: 'Portfolio Optimization', topic: 'Balancing risk and return',
     question: 'How does the mix of two assets change a portfolio’s average return and variability?',
-    profile: 'The project uses eight made-up return observations for two assets. It tests 101 mixes, from all asset B to all asset A.',
-    method: 'For each mix, it calculates a weighted average return and uses the covariance matrix to account for the assets’ individual variation and how they move together. It then compares average return to standard deviation.',
+    profile: 'I used eight made-up return observations for two assets and compared 101 mixes, from all asset B to all asset A.',
+    method: 'For each mix, I calculated weighted average return and portfolio standard deviation from the covariance matrix. I then compared return with risk using their ratio.',
     formula: 'μₚ = wᵀμ\nσₚ = √(wᵀΣw)\nscore = μₚ / σₚ',
     formulaNote: 'w is the vector of asset weights, μ is the vector of average returns, and Σ is the covariance matrix.',
     result: 'Among the 101 tested mixes, the largest sample return-to-risk ratio occurs at 17% in asset A and 83% in asset B.',
-    reflection: 'The inputs are invented and only eight periods long. A high sample ratio here is just a demonstration of weighted averages and covariance; it is not an investment recommendation.', chart: 'portfolio',
+    reflection: 'I practised using weights and covariance to compare risk and return. With only eight invented observations, the best mix is a result of this example and should not guide an investment decision.', chart: 'portfolio',
   },
   {
     number: '09', folder: '09_matrix_factorization_recommender', title: 'Matrix Factorization Recommender', topic: 'Predicting missing ratings',
     question: 'Can a few hidden user and item factors fill in missing ratings?',
-    profile: 'A 4 × 4 table contains ratings from 1 to 5, with three entries set to zero to represent missing values. Only observed ratings contribute to training error.',
-    method: 'Each user and each item starts with a two-value latent vector. The model predicts a rating with their dot product, then adjusts both vectors to reduce squared error on known ratings.',
+    profile: 'I used a 4 × 4 ratings table with three missing entries. Ratings range from 1 to 5; only observed ratings contribute to the training error.',
+    method: 'I represented each user and item with a two-value latent vector. Their dot product predicts a rating, and gradient updates reduce squared error on the known ratings.',
     formula: 'r̂ᵤᵢ = pᵤ · qᵢ\nerrorᵤᵢ = r̂ᵤᵢ − rᵤᵢ\npᵤ, qᵢ ← gradient update on observed ratings',
     formulaNote: 'pᵤ represents a user, qᵢ represents an item, and their dot product is the predicted rating.',
     result: 'After training, the three missing ratings are estimated as 1.9 for user 1/item 3, 3.3 for user 2/item 2, and 1.0 for user 4/item 1. Predictions are clipped to the 1–5 rating range.',
-    reflection: 'Four users and four items are enough to demonstrate latent factors, but not enough to make useful recommendations. Real systems need more data, validation, and careful handling of new users and items.', chart: 'matrix',
+    reflection: 'I learned how hidden user and item factors can estimate a missing rating. A 4 × 4 table is only enough to show the method; real recommendations need much more data and testing.', chart: 'matrix',
   },
   {
     number: '10', folder: '10_clustering_from_scratch', title: 'Clustering From Scratch', topic: 'Grouping by distance',
     question: 'Can the algorithm recover visible groups when it only sees point coordinates?',
-    profile: 'Ninety generated points form three clouds. The project asks k-means to find three clusters, starting from one point in each cloud.',
-    method: 'K-means assigns each point to its nearest center using Euclidean distance. It then moves each center to the mean of its assigned points and repeats until the centers stop changing.',
+    profile: 'I generated 90 points in three groups and asked k-means to find three clusters, starting with one centre in each group.',
+    method: 'I assigned each point to its nearest centre using Euclidean distance, recalculated each centre as the mean of its assigned points, and repeated until the centres stopped moving.',
     formula: 'cluster(xᵢ) = argminₖ ||xᵢ − μₖ||²\nμₖ = mean of all points assigned to cluster k',
     formulaNote: 'The algorithm tries to make points close to their own cluster center.',
     result: 'The centers stop moving after 3 updates. Their final locations are approximately (−0.12, −0.19), (3.94, 0.97), and (1.58, 3.74), near the middle of the three point clouds.',
-    reflection: 'The example makes the groups easy to see. K-means needs the number of clusters in advance and can behave differently with other starting centers or data shaped in non-round groups.', chart: 'clusters',
+    reflection: 'I practised the assign-and-update steps behind k-means. The method needs the number of groups in advance and can be sensitive to starting centres and to groups with irregular shapes.', chart: 'clusters',
   },
   {
     number: '11', folder: '11_logistic_regression', title: 'Logistic Regression From Scratch', topic: 'Drawing a decision boundary',
     question: 'Can a straight boundary separate two groups when the model reports probabilities?',
-    profile: 'The script creates two labelled groups of 45 points each around different centers. Each point has two features and a class label of zero or one.',
-    method: 'The model calculates a weighted score for each point, converts it to a class-one probability with a sigmoid, and uses gradient descent to reduce binary cross-entropy.',
+    profile: 'I created two labelled groups of 45 points, each with two features and a class label of zero or one.',
+    method: 'I calculated a weighted score for each point, converted it to a class-one probability with a sigmoid, and used gradient descent to reduce binary cross-entropy.',
     formula: 'p(y = 1 | x) = σ(w₀ + w₁x₁ + w₂x₂)\nσ(z) = 1 / (1 + e⁻ᶻ)\ndecision boundary: p = 0.5',
     formulaNote: 'The boundary is where the model is equally likely to assign either class.',
     result: 'After 2,500 updates, the learned weights are [0.08, 2.96, 3.53]. The model classifies 97.8% of its own generated training points correctly.',
-    reflection: 'The high training accuracy reflects two deliberately separated toy groups. It is not a measure of performance on new data; a real model needs a separate test set and broader checks.', chart: 'logistic',
+    reflection: 'This exercise let me compare predicted probabilities with a decision boundary. The high training accuracy comes from clearly separated generated groups; it does not show how the model performs on new data.', chart: 'logistic',
   },
   {
     number: '12', folder: '12_naive_bayes', title: 'Naive Bayes From Scratch', topic: 'Classifying words with probability',
     question: 'Can the words in a short message help estimate whether it is spam?',
-    profile: 'The training set contains six short messages labelled spam or not spam. The vocabulary is built from all words in those messages.',
-    method: 'For each class, the model combines the class prior with the likelihood of each word. Add-one smoothing gives unseen words a nonzero likelihood. Log probabilities turn multiplication into addition.',
+    profile: 'I used six short messages labelled spam or not spam and built the vocabulary from their words.',
+    method: 'I combined each class prior with the word likelihoods. Add-one smoothing keeps unseen words possible, and log probabilities turn multiplication into addition.',
     formula: 'score(c) = log P(c) + Σw log P(w | c)\nP(w | c) = (count(w, c) + 1) / (words in c + vocabulary size)',
     formulaNote: 'The final class probability is found by normalizing the two class scores.',
     result: 'The estimated spam probabilities are 65.2% for “free gift today”, 4.2% for “meeting at noon”, and 82.6% for “claim prize”.',
-    reflection: 'The small vocabulary makes the arithmetic easy to follow, but six messages cannot represent real language. Naive Bayes also treats each word as independent given the class.', chart: 'spam',
+    reflection: 'I learned how word counts and Bayes’ rule combine to score a message. Six messages are far too few to represent real language, and the model treats words as independent given the class.', chart: 'spam',
   },
   {
     number: '13', folder: '13_monte_carlo_simulation', title: 'Monte Carlo Simulation Lab', topic: 'Estimating π with random points',
     question: 'Can random sampling estimate the area of a quarter circle?',
-    profile: 'The script samples 20,000 random points uniformly inside a unit square. It checks whether each point falls inside the quarter circle of radius one.',
-    method: 'The circle occupies π/4 of the unit square’s area. The fraction of sampled points inside the circle estimates that area; multiplying the fraction by four estimates π.',
+    profile: 'I sampled 20,000 random points inside a unit square and checked which ones fell inside a quarter circle of radius one.',
+    method: 'The quarter circle covers π/4 of the square. I estimated that area from the share of points inside the curve, then multiplied by four to estimate π.',
     formula: 'inside: x² + y² ≤ 1\nπ̂ = 4 × (points inside circle / total points)',
     formulaNote: 'As the number of independent samples grows, the estimate tends to settle near the true value.',
     result: 'With 20,000 points, the estimate is 3.1316. The reference value is approximately 3.1416, so this run is about 0.0100 lower.',
-    reflection: 'Monte Carlo estimates vary from run to run. This project fixes a random seed so the example is repeatable; more points usually reduce random variation, but at greater computational cost.', chart: 'montecarlo',
+    reflection: 'I saw how random sampling can estimate an area and, from it, π. Fixing the random seed makes this run repeatable; using more points usually reduces sampling variation but takes more computation.', chart: 'montecarlo',
   },
   {
     number: '14', folder: '14_probability_anomaly_detection', title: 'Probability Anomaly Detection', topic: 'Flagging unusual values',
     question: 'Which observations lie unusually far from the sample average?',
-    profile: 'The data contains 45 values drawn around 50 with standard deviation 4, plus three deliberately unusual values: 68, 31, and 82.',
-    method: 'The code calculates the sample mean and sample standard deviation, converts each value to a z-score, and flags values more than two standard deviations from the mean.',
+    profile: 'I generated 45 values around 50, then added three unusual values: 68, 31, and 82.',
+    method: 'I calculated the sample mean and standard deviation, converted each observation to a z-score, and flagged values more than two standard deviations from the mean.',
     formula: 'zᵢ = (xᵢ − x̄) / s\nflag xᵢ when |zᵢ| > 2',
     formulaNote: 'A z-score measures how many standard deviations an observation is above or below the mean.',
     result: 'For this sample, the mean is 50.8 and the standard deviation is 7.4. The values 68, 31, and 82 are flagged with z-scores 2.32, −2.68, and 4.21.',
-    reflection: 'A two-standard-deviation cutoff is a simple rule, not a universal definition of an anomaly. It works best when the distribution and measurement process make z-scores meaningful.', chart: 'anomaly',
+    reflection: 'I practised using z-scores to flag values far from the average. A two-standard-deviation cutoff is a simple rule, not a universal definition of an anomaly; the data shape matters.', chart: 'anomaly',
   },
   {
     number: '15', folder: '15_dynamic_pricing_optimization', title: 'Dynamic Pricing Optimization', topic: 'Finding a price on a grid',
     question: 'Under a simple demand assumption, which tested price gives the most revenue?',
-    profile: 'The toy model tests 201 prices between $0 and $100. Demand starts at 120 units and drops by 1.1 units for every dollar of price.',
-    method: 'For every candidate price, the script estimates demand, multiplies price by demand to get revenue, and selects the highest point on the tested grid.',
+    profile: 'I tested 201 prices from $0 to $100. In this example, demand starts at 120 units and falls by 1.1 units for each dollar added to the price.',
+    method: 'For each price, I estimated demand, multiplied price by demand to calculate revenue, then selected the highest revenue on the grid.',
     formula: 'd(p) = max(120 − 1.1p, 0)\nR(p) = p × d(p)\np* = argmaxₚ R(p)',
     formulaNote: 'The grid uses half-dollar steps, so the selected price is the best tested value, not necessarily the only possible optimum.',
     result: 'The best tested price is $54.50. Estimated demand is 60.0 units and revenue is $3,272.72 in the toy model.',
-    reflection: 'The true demand curve is rarely known and may not be linear. This example teaches grid search and the revenue calculation; it should not be used to set a real price.', chart: 'pricing',
+    reflection: 'I connected a demand assumption to revenue and used a grid search to find the best tested price. Real demand may not be linear, so this simple calculation is not enough to set a real price.', chart: 'pricing',
   },
 ];
 
@@ -174,7 +174,8 @@ const plot = {
 
 const sections = [
   { id: 'introduction', label: 'Introduction' },
-  { id: 'how-to-use', label: 'How to use these notes' },
+  { id: 'why-math', label: 'Why maths matters' },
+  { id: 'math-foundations', label: 'Maths foundations' },
 ];
 
 function escapeHtml(value) {
@@ -187,7 +188,7 @@ function section(id, tocLabel, heading, content) {
 }
 
 function chart(project) {
-  return `<figure class="result-figure"><svg viewBox="0 0 520 190" role="img" aria-label="Illustrative chart for ${escapeHtml(project.title)}">${plot.base}${plot[project.chart]}</svg><figcaption>Visual sketch of the calculation in this small example.</figcaption></figure>`;
+  return `<figure class="result-figure"><svg viewBox="0 0 520 190" role="img" aria-label="Illustrative chart for ${escapeHtml(project.title)}">${plot.base}${plot[project.chart]}</svg></figure>`;
 }
 
 function projectArticle(project) {
@@ -202,7 +203,7 @@ function projectArticle(project) {
     section(`${key}-method`, 'Method', 'Method', `<p>${escapeHtml(project.method)}</p>`),
     section(`${key}-formula`, 'Formula', 'Formula', `<div class="formula-block"><pre>${escapeHtml(project.formula)}</pre><p>${escapeHtml(project.formulaNote)}</p></div>`),
     section(`${key}-result`, 'Result', 'Result', `<p>${escapeHtml(project.result)}</p>${chart(project)}`),
-    section(`${key}-reflection`, 'Reflection', 'Reflection', `<p>${escapeHtml(project.reflection)}</p>`),
+    section(`${key}-reflection`, 'What I learned', 'What I learned', `<p>${escapeHtml(project.reflection)}</p>`),
   ].join('');
   return `<article class="project-article" id="${key}" data-project="${key}">
     <header class="project-heading" data-section="${introId}">
@@ -218,28 +219,56 @@ function projectArticle(project) {
 const introduction = `
   <header class="article-heading">
     <h1>Applied Math for Data Science</h1>
-    <p class="byline">Vidhya Walke <span>·</span> Project notes and worked examples</p>
+    <p class="byline">Vidhya Walke</p>
   </header>
   <section class="article-section" id="introduction" data-section="introduction">
     <h2>Introduction</h2>
-    <p>This collection explores the math behind common data science ideas through 15 small Python projects. Each note starts with a question, explains the data and formula, walks through the method, and records the result from the project code.</p>
-    <p>The examples are deliberately compact. You can read the explanation first, then open the notebook to follow the code and visualization. The scripts use fixed random seeds where needed, so their printed results can be reproduced.</p>
+    <p>I built these Python projects to practise the maths behind data science. They gave me hands-on experience with regression, optimization, probability, PCA, forecasting, clustering, classification, recommendation systems, and anomaly detection. In each project, I implemented the main calculation, checked the result, and wrote about what I learned.</p>
   </section>
-  <section class="article-section" id="how-to-use" data-section="how-to-use">
-    <h2>How to use these notes</h2>
-    <p>Use the contents panel to jump to a project. As you scroll, the current project opens in the panel and the section in view is highlighted. Each project links to its notebook, Python script, and short project guide.</p>
-    <p>Results below come from the included toy examples. They help explain a calculation; they are not business, investment, or customer decision advice.</p>
+  <section class="article-section" id="why-math" data-section="why-math">
+    <h2>Why Mathematics Matters in Data Science</h2>
+    <p>When I work with data, mathematics helps me understand what a model is doing and whether its results make sense. It gives me a clear way to move from data to insight, then from insight to a decision.</p>
+    <ul>
+      <li>Algorithms use mathematical operations; understanding them helps me choose and use the right tools.</li>
+      <li>Statistics helps me describe data, check patterns, and measure uncertainty.</li>
+      <li>Mathematical reasoning helps me spot assumptions and avoid reading too much into a result.</li>
+      <li>Knowing how a model works makes it easier to explain its results to other people.</li>
+    </ul>
+    <p><strong>For me, learning the maths behind a model is part of building data science work I can explain and trust.</strong></p>
+  </section>
+  <section class="article-section" id="math-foundations" data-section="math-foundations">
+    <h2>Four Mathematical Foundations</h2>
+    <p>These projects helped me practise four areas of maths that appear throughout data science:</p>
+    <ol>
+      <li><strong>Linear algebra.</strong> Vectors and matrices help represent data and are used in PCA and recommendation systems.</li>
+      <li><strong>Calculus and optimization.</strong> Derivatives show how a function changes; optimization uses that information to improve a model or find a best value.</li>
+      <li><strong>Probability and statistics.</strong> These help describe patterns, compare groups, and reason about uncertainty in A/B tests and predictions.</li>
+      <li><strong>Discrete mathematics and geometry.</strong> Distances, shapes, and logical structures help organize points into clusters and identify unusual observations.</li>
+    </ol>
+    <p>The projects below show how I used these ideas in Python, from calculating a regression line to comparing forecasts and detecting anomalies.</p>
   </section>
   <hr class="article-divider" />`;
 
 const article = document.querySelector('#article');
 article.innerHTML = introduction + projects.map(projectArticle).join('') + `
   <section class="article-section references-section" id="references" data-section="references">
-    <h2>References &amp; further reading</h2>
-    <p>The linked notebooks and project guides contain the full code walkthroughs. For additional background, consult an introductory text or course on statistics, linear algebra, probability, and optimization.</p>
-    <p><a href="${repo}" target="_blank" rel="noreferrer">Applied Math for Data Science repository ↗</a></p>
+    <h2>References</h2>
+    <p>I used these sources to study and check the methods and formulas. The data, Python implementations, and results shown here come from my project scripts and notebooks.</p>
+    <ol class="reference-list">
+      <li><span>James, G., Witten, D., Hastie, T., Tibshirani, R., &amp; Taylor, J. (2023).</span> <em>An Introduction to Statistical Learning with Applications in Python</em> (1st ed.). Springer. <a href="https://www.statlearning.com/" target="_blank" rel="noreferrer">https://www.statlearning.com/</a><small>Regression, classification, principal components, and clustering (Projects 1, 3, 6, 10, and 11).</small></li>
+      <li><span>scikit-learn developers. (n.d.).</span> <em>scikit-learn User Guide.</em> Retrieved September 25, 2026, from <a href="https://scikit-learn.org/stable/user_guide.html" target="_blank" rel="noreferrer">https://scikit-learn.org/stable/user_guide.html</a><small>Linear models, naive Bayes, clustering, PCA, and outlier detection (Projects 1, 3, 10, 11, 12, and 14).</small></li>
+      <li><span>NIST/SEMATECH. (n.d.).</span> <em>e-Handbook of Statistical Methods: Comparing two proportions.</em> Retrieved September 25, 2026, from <a href="https://www.itl.nist.gov/div898/handbook/prc/section3/prc33.htm" target="_blank" rel="noreferrer">https://www.itl.nist.gov/div898/handbook/prc/section3/prc33.htm</a><small>Two-proportion z-test used in the A/B testing example (Project 4).</small></li>
+      <li><span>Murphy, K. P. (2022).</span> <em>Probabilistic Machine Learning: An Introduction.</em> MIT Press. <a href="https://probml.github.io/book1" target="_blank" rel="noreferrer">https://probml.github.io/book1</a><small>Probability models and Bayesian inference (Project 5).</small></li>
+      <li><span>Hyndman, R. J., &amp; Athanasopoulos, G. (2021).</span> <em>Forecasting: Principles and Practice</em> (3rd ed.). OTexts. <a href="https://otexts.com/fpp3/" target="_blank" rel="noreferrer">https://otexts.com/fpp3/</a><small>Time-series patterns and forecasting methods (Project 7).</small></li>
+      <li><span>Markowitz, H. (1952).</span> Portfolio selection. <em>The Journal of Finance, 7</em>(1), 77–91. <a href="https://doi.org/10.1111/j.1540-6261.1952.tb01525.x" target="_blank" rel="noreferrer">https://doi.org/10.1111/j.1540-6261.1952.tb01525.x</a><small>Mean-variance portfolio idea behind the two-asset comparison (Project 8).</small></li>
+      <li><span>Google for Developers. (n.d.).</span> <em>Matrix factorization.</em> Retrieved September 25, 2026, from <a href="https://developers.google.com/machine-learning/recommendation/collaborative/matrix" target="_blank" rel="noreferrer">https://developers.google.com/machine-learning/recommendation/collaborative/matrix</a><small>User and item factors for recommendation (Project 9).</small></li>
+      <li><span>NumPy developers. (n.d.).</span> <em>Random sampling.</em> Retrieved September 25, 2026, from <a href="https://numpy.org/doc/stable/reference/random/index" target="_blank" rel="noreferrer">https://numpy.org/doc/stable/reference/random/index</a><small>Random sampling and repeatable seeds (Projects 3, 7, 13, and 14).</small></li>
+      <li><span>OpenStax. (2016).</span> <em>Calculus Volume 1: Applied optimization problems.</em> <a href="https://openstax.org/books/calculus-volume-1/pages/4-7-applied-optimization-problems" target="_blank" rel="noreferrer">https://openstax.org/books/calculus-volume-1/pages/4-7-applied-optimization-problems</a><small>Maximizing a quantity such as revenue (Project 15).</small></li>
+      <li><span>Towards Data Science. (n.d.).</span> <em>Mathematics for data science.</em> <a href="https://towardsdatascience.com/mathematics-for-data-science-e53939ee8306/" target="_blank" rel="noreferrer">https://towardsdatascience.com/mathematics-for-data-science-e53939ee8306/</a><small>Background reading for the role and main areas of mathematics in data science.</small></li>
+    </ol>
+    <p class="repository-source"><a href="${repo}" target="_blank" rel="noreferrer">View my code, notebooks, and project guides on GitHub ↗</a></p>
   </section>
-  <footer class="article-footer">A student-friendly reference for learning by building · <a href="${repo}" target="_blank" rel="noreferrer">View the source on GitHub</a></footer>`;
+  <footer class="article-footer">Vidhya Walke · <a href="${repo}" target="_blank" rel="noreferrer">GitHub repository</a></footer>`;
 
 const toc = document.querySelector('#table-of-contents');
 const overviewLinks = sections.filter((item) => !item.project).map((item) => `<a class="toc-link" href="#${item.id}" data-target="${item.id}">${item.label}</a>`).join('');
@@ -250,7 +279,6 @@ const projectToc = projects.map((project) => {
   return `<div class="toc-project" data-project-nav="${key}">
     <div class="toc-project-row">
       <a class="toc-project-link" href="#${key}-introduction" data-target="${key}-introduction"><span>${project.number}</span>${escapeHtml(project.title)}</a>
-      <button class="toc-toggle" type="button" aria-expanded="false" aria-label="Expand ${escapeHtml(project.title)} sections">+</button>
     </div>
     <div class="toc-children" hidden>${links}</div>
   </div>`;
@@ -260,19 +288,9 @@ toc.innerHTML = `<div class="toc-overview">${overviewLinks}</div><div class="toc
 const tocLinks = [...toc.querySelectorAll('[data-target]')];
 const navGroups = [...toc.querySelectorAll('.toc-project')];
 const toggleGroup = (group, expand) => {
-  const button = group.querySelector('.toc-toggle');
   const children = group.querySelector('.toc-children');
-  button.setAttribute('aria-expanded', String(expand));
-  button.textContent = expand ? '−' : '+';
   children.hidden = !expand;
 };
-
-toc.querySelectorAll('.toc-toggle').forEach((button) => {
-  button.addEventListener('click', () => {
-    const group = button.closest('.toc-project');
-    toggleGroup(group, button.getAttribute('aria-expanded') !== 'true');
-  });
-});
 
 const trackedSections = [...document.querySelectorAll('[data-section]')];
 let updateQueued = false;
@@ -307,8 +325,15 @@ function scheduleCurrentSection() {
 window.addEventListener('scroll', scheduleCurrentSection, { passive: true });
 window.addEventListener('resize', scheduleCurrentSection);
 tocLinks.forEach((link) => link.addEventListener('click', () => {
-  const group = link.closest('.toc-project');
-  if (group) toggleGroup(group, true);
   tocLinks.forEach((item) => item.classList.toggle('is-current', item === link));
+  document.querySelector('.sidebar').classList.remove('is-open');
+  document.querySelector('.contents-toggle').setAttribute('aria-expanded', 'false');
 }));
+const contentsToggle = document.querySelector('.contents-toggle');
+contentsToggle.addEventListener('click', () => {
+  const isOpen = contentsToggle.getAttribute('aria-expanded') !== 'true';
+  contentsToggle.setAttribute('aria-expanded', String(isOpen));
+  contentsToggle.setAttribute('aria-label', isOpen ? 'Close contents' : 'Open contents');
+  document.querySelector('.sidebar').classList.toggle('is-open', isOpen);
+});
 updateCurrentSection();

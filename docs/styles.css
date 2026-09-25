@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
 :root {
   --ink: #222831;
   --muted: #66717c;
@@ -5,7 +7,7 @@
   --blue: #337eb7;
   --soft: #f5f6f7;
   --serif: Georgia, 'Times New Roman', serif;
-  --sans: Arial, Helvetica, sans-serif;
+  --sans: 'Poppins', Arial, Helvetica, sans-serif;
   --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
 }
 
@@ -97,32 +99,66 @@ a { color: #276b9f; }
 .article-footer a { text-decoration: none; }
 .article-footer a:hover { text-decoration: underline; }
 
+/* A compact contents list that follows the article without its own scrollbar. */
+.page-layout { grid-template-columns: 190px minmax(0, 1000px); gap: clamp(38px, 5vw, 72px); }
+.sidebar { max-height: none; overflow: visible; font-size: 14px; }
+.toc-projects { max-height: none; overflow: visible; }
+.toc-project { display: none; }
+.toc-project.is-current-project { display: block; }
+.toc-project-row { display: block; }
+.toc-project-link { padding: 7px 11px; font-size: 13px; line-height: 1.35; }
+.toc-children { padding: 0 0 5px 12px; }
+.toc-child { padding: 5px 9px; font-size: 12px; }
+.toc-project.is-current-project .toc-project-row { background: #fff; }
+.toc-project.is-current-project .toc-project-link { color: #373d43; font-weight: 600; }
+.toc-child.is-current { color: #fff; background: var(--blue); }
+.article-heading h1,.article-section h2,.article-section h3,.project-heading h2,.project-introduction h3 { font-family: var(--sans); }
+.article-heading h1 { font-weight: 800; letter-spacing: -.045em; }
+.article-section h2 { font-weight: 700; }
+.project-heading h2 { font-weight: 800; }
+.article-heading { margin-bottom: 35px; }
+.reference-list { padding-left: 24px; }
+.reference-list li { margin: 0 0 17px; padding-left: 4px; }
+.reference-list li span { font-weight: 600; }
+.reference-list small { display: block; margin-top: 3px; color: var(--muted); font: 12px/1.55 var(--sans); }
+.contents-toggle { display: none; }
+
 @media (max-width: 900px) {
-  .page-layout { grid-template-columns: 195px minmax(0,1fr); gap: 27px; padding: 55px 20px 70px; }
+  .page-layout { grid-template-columns: 185px minmax(0,1fr); gap: 24px; padding: 55px 20px 70px; }
   .sidebar { top: 83px; }
 }
 @media (max-width: 680px) {
-  body { font-size: 16px; }
-  .topbar { height: 58px; padding: 0 15px; }
-  .site-title { font-size: 10px; }
-  .page-layout { display: flex; flex-direction: column; gap: 22px; padding: 18px 15px 60px; }
-  .sidebar { position: sticky; z-index: 3; top: 58px; width: 100%; max-height: 36vh; font-size: 13px; }
-  .toc-projects { max-height: 22vh; }
-  .sidebar-heading { padding: 6px 12px; }
-  .toc-link { padding: 6px 12px; }
-  .toc-project-link { padding: 6px 8px 6px 12px; }
+  html { scroll-padding-top: 62px; }
+  body { font-size: 16px; line-height: 1.55; }
+  .topbar { height: 50px; padding: 0 14px; }
+  .site-title { font-size: 9px; letter-spacing: .13em; }
+  .home-link { display: none; }
+  .contents-toggle { display: flex; width: 36px; height: 32px; padding: 7px; flex-direction: column; justify-content: space-between; border: 1px solid #d7dadd; border-radius: 4px; background: #fff; }
+  .contents-toggle span { display: block; height: 1px; background: #68727b; }
+  .page-layout { display: block; width: 100%; padding: 18px 18px 55px; }
+  .sidebar { display: none; position: fixed; z-index: 6; top: 56px; right: 12px; left: 12px; width: auto; box-shadow: 0 4px 14px rgba(0,0,0,.12); font-size: 14px; }
+  .sidebar.is-open { display: block; }
+  .sidebar-heading { padding: 7px 12px; }
+  .toc-link { padding: 7px 12px; }
+  .toc-project-link { padding: 7px 11px; }
   .toc-children { padding-left: 12px; }
-  .toc-child { padding: 4px 8px; }
+  .toc-child { padding: 6px 9px; }
   .article { width: 100%; }
-  .article-heading { margin-bottom: 30px; }
-  .article-section { margin-bottom: 31px; }
+  .article-heading { margin-bottom: 27px; }
+  .article-heading h1 { max-width: 340px; font-size: 31px; line-height: 1.05; }
+  .byline { font-size: 15px; }
+  .article-section { margin-bottom: 31px; scroll-margin-top: 65px; }
   .article-section h2 { font-size: 24px; }
   .article-section h3 { font-size: 20px; }
   .project-article { margin-top: 40px; padding-top: 28px; }
+  .project-heading { scroll-margin-top: 65px; }
+  .project-heading h2 { font-size: 28px; }
   .project-introduction blockquote { font-size: 15px; }
   .formula-block { padding: 12px; }
   .formula-block pre { font-size: 12px; }
   .source-links { gap: 9px 13px; }
+  .reference-list { padding-left: 21px; }
+  .reference-list li { overflow-wrap: anywhere; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
