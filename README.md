@@ -1,10 +1,10 @@
 # Applied Math for Data Science
 
-### 15 visual projects for learning the math behind data science
+### 15 small projects in data science maths
 
-I’m learning how math powers data science by building 15 small Python projects. I made these for myself and anyone starting out—each has simple code and a visual explanation.
+I built 15 small Python projects to practise the maths behind data science. Each includes simple code and a visual.
 
-Use the [student reference guide](https://vidhyawalke.github.io/Applied-Math-for-Data-Science/) for blog-style walkthroughs of the formulas, methods, and results in all 15 projects.
+See the [project guide](https://vidhyawalke.github.io/Applied-Math-for-Data-Science/) for the formulas, methods, and results.
 
 If this helps you learn, please ⭐ the repo!
 
