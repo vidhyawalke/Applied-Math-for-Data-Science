@@ -4,7 +4,7 @@
 
 I’m learning how math powers data science by building 15 small Python projects. I made these for myself and anyone starting out—each has simple code and a visual explanation.
 
-Explore the [interactive project showcase](https://vidhyawalke.github.io/Applied-Math-for-Data-Science/) for a guided overview of all 15 projects.
+Use the [student reference guide](https://vidhyawalke.github.io/Applied-Math-for-Data-Science/) for blog-style walkthroughs of the formulas, methods, and results in all 15 projects.
 
 If this helps you learn, please ⭐ the repo!
 
