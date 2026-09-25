@@ -269,26 +269,16 @@ article.innerHTML = introduction + projects.map(projectArticle).join('') + `
   <footer class="article-footer">Vidhya Walke · <a href="${repo}" target="_blank" rel="noreferrer">GitHub repository</a></footer>`;
 
 const toc = document.querySelector('#table-of-contents');
-const overviewLinks = sections.filter((item) => !item.project).map((item) => `<a class="toc-link" href="#${item.id}" data-target="${item.id}">${item.label}</a>`).join('');
 const projectToc = projects.map((project) => {
   const key = `project-${project.number}`;
-  const items = sections.filter((item) => item.project && item.id.startsWith(`${key}-`));
-  const links = items.map((item) => `<a class="toc-child" href="#${item.id}" data-target="${item.id}">${item.label}</a>`).join('');
   return `<div class="toc-project" data-project-nav="${key}">
-    <div class="toc-project-row">
-      <a class="toc-project-link" href="#${key}-introduction" data-target="${key}-introduction"><span>${project.number}</span>${escapeHtml(project.title)}</a>
-    </div>
-    <div class="toc-children" hidden>${links}</div>
+    <a class="toc-project-link" href="#${key}-introduction" data-target="${key}-introduction"><span>${project.number}</span><span class="toc-project-title">${escapeHtml(project.title)}</span></a>
   </div>`;
 }).join('');
-toc.innerHTML = `<div class="toc-overview">${overviewLinks}</div><div class="toc-projects">${projectToc}</div><a class="toc-link toc-reference" href="#references" data-target="references">References</a>`;
+toc.innerHTML = `<div class="toc-projects">${projectToc}</div>`;
 
 const tocLinks = [...toc.querySelectorAll('[data-target]')];
 const navGroups = [...toc.querySelectorAll('.toc-project')];
-const toggleGroup = (group, expand) => {
-  const children = group.querySelector('.toc-children');
-  children.hidden = !expand;
-};
 
 const trackedSections = [...document.querySelectorAll('[data-section]')];
 let updateQueued = false;
@@ -303,12 +293,14 @@ function updateCurrentSection() {
   }
   if (!current) return;
   const currentId = current.dataset.section;
-  tocLinks.forEach((link) => link.classList.toggle('is-current', link.dataset.target === currentId));
   const currentGroup = current.closest('[data-project]')?.id;
+  tocLinks.forEach((link) => {
+    const linkGroup = link.closest('[data-project-nav]')?.dataset.projectNav;
+    link.classList.toggle('is-current', link.dataset.target === currentId || linkGroup === currentGroup);
+  });
   navGroups.forEach((group) => {
     const isCurrentGroup = group.dataset.projectNav === currentGroup;
     group.classList.toggle('is-current-project', isCurrentGroup);
-    toggleGroup(group, isCurrentGroup);
     if (isCurrentGroup && currentGroup !== activeProjectGroup) {
       group.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     }
